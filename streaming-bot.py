@@ -162,7 +162,7 @@ try:
     mute = webdriver.ChromeOptions()   
     mute.add_argument("--mute-audio")
     # bot will start and close a new window for each watch
-    driver = webdriver.Chrome('.\\resources\\chromedriver', options=mute)
+    driver = webdriver.Chrome(options=mute)
     driver.maximize_window()
     driver.implicitly_wait(10)
     # bot goes to yt
