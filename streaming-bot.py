@@ -105,6 +105,7 @@ def log_info():
 def small_log():
     time.sleep(1)
     print(getTitle())
+    print(to_min(getDuration()))
     print('---------------------------------')
 
 def watch_video():
@@ -121,24 +122,19 @@ def watch_video_small_log():
     small_log()
     time.sleep(getDuration())
 
-def video_cooldown():
-    driver.get('https://www.youtube.com/watch?v=846cjX0ZTrk') # HI HIGH
-    watch_video()
-    driver.get('https://www.youtube.com/watch?v=XEOCbFJjRw0') # BUTTERFLY
-    watch_video()
-    driver.get('https://www.youtube.com/watch?v=I5_BQAtwHws') # YOU AND I (DREAMCATCHER)
-    watch_video()
-    driver.get('https://www.youtube.com/watch?v=FKlGHHhTOsQ') # SCREAM (DREAMCATCHER)
-    watch_video()
-
 def look_for_next(videos):
     for index, video in enumerate(videos):
         title = video.text
-        if ('LOONA' in title or 'Dreamcatcher' in title):
+        if ('Mix' not in title and ('LOONA' in title or 'Dreamcatcher' in title)):
             return index
     return False
 
-def video_cooldown2():
+def to_min(time):
+    min = str(time // 60)
+    sec = str(time % 60)
+    return min + ' min ' + sec + ' sec'
+
+def video_cooldown():
     t = 0
     while (t < 900):
         side_videos = elements(other_videos)
@@ -148,9 +144,11 @@ def video_cooldown2():
         else:
             side_videos[3].click()
         time.sleep(3)
-        watch_video_small_log()
         d = getDuration()
         t += d
+        watch_video()
+    print(to_min(t))
+    print('=================================')
 
 
 # EXECUTION
@@ -173,7 +171,7 @@ try:
         goto_vid(video)
         disable_autoplay()
         watch_video_and_log()
-        video_cooldown2()
+        video_cooldown()
 
 finally:
     # cleans the stuff
